@@ -1,0 +1,34 @@
+void find_sum(int *array_numbers, int x){
+ int i, freq, n_numbers; 
+ int array_freq[x+1]= {0}; // x + 1 as there could be 0’s as well
+ if(array_numbers)
+ {
+  n_numbers = (int) sizeof(array_numbers);
+  for(i=0; i<n_numbers;i++){ array_freq[array_numbers[i]]++; } 
+  for(i=0; i<n_numbers;i++) 
+  {
+   if ((array_freq[x-array_numbers[i]] > 0)&&(array_freq[array_numbers[i]] > 0)&&(array_numbers[i]!=(x/2)))
+   { 
+    freq = array_freq[x-array_numbers[i]] * array_freq[array_numbers[i]];
+    printf(“-{%d,%d} %d times\n”,array_numbers[i],x-array_numbers[i],freq ); 
+    // “-{3, 7} 6 times” if there’s 3 ‘7’s and 2 ‘3’s
+    array_freq[array_numbers[i]]=0;
+    array_freq[x-array_numbers[i]]=0; // doing this we don’t get them repeated
+   }
+  } // end loop
+  if ((x%2)=0)
+  {
+   freq = array_freq[x/2];
+   n_numbers=0;
+   for(i=1; i<freq;i++)
+   {
+    n_numbers+= (freq-i); 
+   } 
+   printf(“-{%d,%d} %d times\n”,x/2,x/2,n_numbers);
+  }
+  return;
+ }else{
+ return; // Incoming NULL array 
+ printf(“nothing to do here, bad pointer\n”);
+ }
+}
